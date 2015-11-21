@@ -1,0 +1,31 @@
+<h1 id='title'><?php echo $this->title; ?></h1>
+
+<canvas id='box3'></canvas>
+
+<div>
+<p>This application tests your drawing ability. There are six trials in this test.  On the first screen of each trial, you will be shown a box with a line inside of it.  On the second screen, you will be asked to draw a line of the same length inside a different box.</p> 
+<p>Before beginning the test, please enter the unique code that was given to you in the previous survey in the box below. </p>
+
+</div>
+
+<form id='calibrate' method='post' action='<?php echo $this->url(array('controller' => 'index', 'action' => 'pstart'), 'default', true); ?>'>
+	<input type='hidden' id='1cminpx' name='1cminpx' value='' />
+	<input type='hidden' id='h1height' name='h1height' value='' />
+	<input type='text' name='userid' value='' />
+	<input type='submit' value='Start Trial' />
+</form>
+
+
+<script type="text/javascript">
+  
+  $(document).ready(function (e) {
+	  
+	  var width3 = $('#box3').css('width');
+	  var h1height = $('#title').css('height');
+	  
+	  $('#1cminpx').val(width3);
+	  $('#h1height').val(h1height);
+	  
+	  
+  });  
+</script>

@@ -1,0 +1,120 @@
+<h1 id='title'><?php echo $this->title; ?></h1>
+
+<canvas id='box' width='<?php echo $this->size; ?>' height='<?php echo $this->size; ?>'></canvas>
+
+<div>
+<?php if ($this->trial == 1) { ?>
+<p>Please draw a line of the exact length as the one you saw on the previous screen inside the new box. <u>Please do not use a pen or your finger to measure the lengths of the lines.</u> Start the line by dragging the cursor from the top of the box towards the bottom of the box.  If you are unhappy with the line you drew, click the "Undo" button below to draw a second line.  You will be unable to redraw a line once the test begins so please use this screen to practice how to draw lines.</p>
+<p><strong>Once you are ready to start the test, click the "Start Test" button below.</strong></p>
+<p><u><strong>Please do not hit the back button on your browser at any point during this test.</strong></u></p>
+<?php } else { ?>
+<p>Please redraw the line you saw on the previous screen inside the box.</p>
+<?php } ?>
+<button id='btnundo'><span>Undo</span></button>
+</div>
+
+<button id='drawyourown'><span><?php echo $this->buttontext; ?></span></button>
+
+<form id='usrdata' method='post' action='<?php echo $this->url(array('controller' => 'index', 'action' => $this->nextpage), 'default', true); ?>'>
+	<input type='hidden' value='' id='usrline' name='usrline' />
+</form>
+
+<script type="text/javascript">
+  
+  $(document).ready(function (e) {
+
+	  var mousedown = false;
+	  var startpageY = null;
+		var startpageX = null;
+
+		var endpageY = null;
+		var endpageX = null;
+
+		var linedrawn = 0;
+
+		var canvas = document.getElementById('box');
+		var context = canvas.getContext('2d');
+		
+		lineLength = function(x, y, x0, y0){
+		    return Math.sqrt((x -= x0) * x + (y -= y0) * y);
+		};
+		
+		function drawLine() {
+			
+			if (canvas.getContext) {
+				if (linedrawn == 1) return 0;
+				if ( (endpageX - startpageX) > (endpageY - startpageY) ) {
+					alert("Please draw a line starting from the top of the box"); 
+					var box = document.getElementById('box');
+					box.width = box.width;
+					linedrawn = 0;
+					return 0;
+				}
+
+				var xlen = startpageX - startpageX;
+				var ylen = endpageY - startpageY;
+
+				var propotion = xlen / ylen * 100;
+
+				if (propotion > 5) {
+					alert('Your line must be as vertical as much as possible');
+					var box = document.getElementById('box');
+					box.width = box.width;
+					linedrawn = 0;
+					return 0;
+				}
+				
+				$('#usrline').val(lineLength(startpageX, startpageY, startpageX, endpageY));
+				linedrawn = 1;
+			}
+		}
+
+		$('#box').mousedown(function (e) {
+			if (linedrawn == 1) return 0;
+			mousedown = true;			
+			startpageY = e.pageY;
+			startpageX = e.pageX;
+			context.beginPath();
+			context.moveTo(startpageX - 20,startpageY - 40 - <?php echo $this->height; ?>);
+		});
+
+		$('#box').mousemove(function (e) {
+			if (linedrawn == 1) return 0;
+			if (!mousedown) return 0;
+			context.lineTo(startpageX - 20, e.pageY - 40 - <?php echo $this->height; ?>);
+			context.stroke();
+		});
+
+		$('#box').mouseup(function (e) {
+			if (linedrawn == 1) return 0;
+			endpageY = e.pageY;
+			endpageX = e.pageX;
+			context.lineTo(startpageX - 20,endpageY - 40 - <?php echo $this->height; ?>);
+			context.stroke();
+			context.closePath();
+			drawLine();
+			mousedown = false;
+		});
+
+		$('#drawyourown').click(function (e) {
+			$('#usrdata').submit();
+		});
+
+		$('#btnundo').click(function (e) {
+			var box = document.getElementById('box');
+			box.width = box.width;
+			linedrawn = 0;
+			mousedown = false;
+		});
+
+		$(document).ready(function (e) {
+			//context.beginPath();
+			//var middle = <?php echo $this->size; ?> / 2;
+			//context.moveTo(middle,0);
+			//context.lineTo(middle,10);
+			//context.stroke();
+			//context.closePath();			
+		});
+			
+  });  
+</script>

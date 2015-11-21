@@ -1,0 +1,24 @@
+<?php echo $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Homegrown Inventory Management System</title>
+  <?php echo $this->headLink()->appendStylesheet('/css/global.css') ?>
+  <link rel="stylesheet" href="/css/jquery.ui.all.css" />
+  <script type="text/javascript" src="/jscript/jquery-1.8.0.js"></script>
+  	<script src="/jscript/ui/jquery.ui.core.js"></script>
+	<script src="/jscript/ui/jquery.ui.widget.js"></script>
+	<script src="/jscript/ui/jquery.ui.tabs.js"></script>
+	<script src="/jscript/ui/jquery.ui.position.js"></script>
+	<script src="/jscript/ui/jquery.ui.autocomplete.js"></script>
+	<script src="/jscript/ui/jquery.ui.datepicker.js"></script>
+</head>
+<body>
+<div id='menu_header' class='welcome'>Home Grown Inventory Management System v.0.1</div>
+<div id="content">
+
+	<?php echo $this->layout()->content ?>	
+
+</div>
+</body>
+</html>

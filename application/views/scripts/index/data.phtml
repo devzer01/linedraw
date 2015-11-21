@@ -1,0 +1,16 @@
+<h1 id='title'>Download The Data File</h1>
+
+<button id='btndownload'><span>Click Here To Download Data File</span></button>
+
+
+<script type='text/javascript'>
+
+	$(document).ready(function (e) {
+
+		$('#btndownload').click(function (e) {
+			window.location.href = '<?php echo $this->url(array('controller' => 'index', 'action' => 'download'), 'default', true); ?>';
+		})
+		
+	});
+
+</script>

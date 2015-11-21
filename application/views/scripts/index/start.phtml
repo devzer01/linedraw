@@ -1,0 +1,40 @@
+
+<h1 id='title'><?php echo $this->title; ?></h1>
+
+<canvas id='box' width='<?php echo $this->size; ?>' height='<?php echo $this->size; ?>'></canvas>
+
+<div>
+
+<?php if ($this->trial == 1) { ?>
+<p>The first two trials are for practice only.  Please take a moment to look at the image to the left.  When you are ready to go to the next screen, click the "Draw Line" button below.</p> 
+<p><strong><u>Please do not hit the back button on your browser at any point during this test.</u></strong></p>
+<?php } else { ?>
+<p>
+Please take a moment to look at the image to the left.  When you are ready to go to the next screen, click the "Draw Line" button below. 
+</p>
+<?php } ?>
+</div>
+
+<button id='drawyourown'><span>Draw Line</span></button>
+
+<script type="text/javascript">
+  
+  $(document).ready(function (e) {
+		drawLine();
+		  
+			function drawLine() {
+				var canvas = document.getElementById('box');
+				if (canvas.getContext) {
+					var context = canvas.getContext('2d');
+					context.beginPath();
+					context.moveTo(<?php echo $this->size / 2; ?>, 0);
+					context.lineTo(<?php echo $this->size / 2; ?>, <?php echo $this->line; ?>);
+					context.stroke();
+				}
+			}
+
+		$('#drawyourown').click(function (e) {
+			window.document.location.href = "<?php echo $this->url(array('controller' => 'index', 'action' => $this->nextpage), 'default', true); ?>";
+		});
+  });  
+</script>

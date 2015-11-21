@@ -1,0 +1,105 @@
+<?php
+<html>
+
+<head>
+<title>Draw Line</title>
+<style type="text/css">
+body { margin: 20px; font-family: arial,verdana,helvetica; background: #fff;}
+h1 { font-size: 140%; font-weight:normal; color: #036; border-bottom: 1px solid #ccc; }
+canvas { border: 2px solid #000; cursor: crosshair; float: left; margin-right: 20px; margin-bottom: 20px; }
+pre { float:left; display:block; background: rgb(238,238,238); border: 1px dashed #666; padding: 15px 20px; margin: 0 0 10px 0; }
+
+</style>
+<script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.min.js'></script>
+</head>
+<body>
+<!-- <canvas id='box'></canvas>
+<canvas id='box2'></canvas> -->
+<canvas id='box3' width=300></canvas>
+
+<div id='log'></div>
+
+<script type="text/javascript">
+function draw () {
+	var canvas = document.getElementById('box');
+	if (canvas.getContext) {
+		var context = canvas.getContext('2d');
+		context.fillStyle = "blue";
+		context.font = "bold 16px Arial";
+		context.fillText("1cm", 100, 100);
+	} else {
+		// put code for browsers that don’t support canvas here
+		alert("This page uses HTML 5 to render correctly. Other browsers may not see anything.");
+	}
+
+	var canvas = document.getElementById('box2');
+	if (canvas.getContext) {
+		var context = canvas.getContext('2d');
+		context.fillStyle = "blue";
+		context.font = "bold 16px Arial";
+		context.fillText("2cm", 100, 100);
+	} else {
+		// put code for browsers that don’t support canvas here
+		alert("This page uses HTML 5 to render correctly. Other browsers may not see anything.");
+	}
+
+	var canvas = document.getElementById('box3');
+	if (canvas.getContext) {
+		var context = canvas.getContext('2d');
+		context.fillStyle = "blue";
+		context.font = "bold 16px Arial";
+		context.fillText("5cm", 100, 100);
+	} else {
+		// put code for browsers that don’t support canvas here
+		alert("This page uses HTML 5 to render correctly. Other browsers may not see anything.");
+	}
+}
+
+$(document).ready(function (e) {
+
+	//draw();
+
+	var startpageY = null;
+	var startpageX = null;
+
+	var endpageY = null;
+	var endpageX = null;
+
+	function drawLine() {
+		var canvas = document.getElementById('box3');
+		if (canvas.getContext) {
+			var context = canvas.getContext('2d');
+			context.beginPath();
+			context.moveTo(startpageX - 20,startpageY - 20);
+			context.lineTo(endpageX - 20,endpageY - 20);
+			context.stroke();
+		}
+	}
+
+	$('#box3').mousedown(function (e) {
+		startpageY = e.pageY;
+		startpageX = e.pageX;
+	});
+
+	$('#box3').mouseup(function (e) {
+		endpageY = e.pageY;
+		endpageX = e.pageX;
+		drawLine();
+	});
+
+
+	var width = $('#box').css('width');
+	var width2 = $('#box2').css('width');
+	var width3 = $('#box3').css('width');
+	 
+	 
+	$('#log').html('Box1 1cm Width in Pixel is ' + width + '<br/>' + 'Box2 2cm Width in Pixel is ' + width2 + '<br/>' + 'Box3 5cm Width in Pixel is ' + width3 + '<br/>' );
+	 
+});
+
+
+</script>
+<div>Test</div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<h1>Thanks For Participating</h1>
+
+<p>You may now continue with the survey in your web browser. To begin please cut and paste the unique code below into the box on the survey:  FDDONE001</p>
+
+
+(Below is Testing Purpose Only)
+
+<table border='1' style='border: 1px solid black;' cellspacing=10 cellpadding=10>
+	<tr>
+		<td>Step</td>
+		<td>System Length</td>
+		<td>User Length</td>
+		<td>Accuracy</td>
+	</tr>
+<?php for ($i=1; $i<=2; $i++ ) { 
+		
+		$percent = (($this->data['ptrial' . $i . 'usr'] / $this->data['ptrial' . $i . 'sys']) * 100);
+		
+		$css = 'red';
+		if ($percent >= 90 && $percent <= 110) {
+			$css = 'green';
+		} 
+		?>
+	<tr class='<?php echo $css;?>'>
+		<td>Practice Test <?php echo $i; ?></td>
+		<td><?php echo number_format($this->data['ptrial' . $i . 'sys'], 2)?></td>
+		<td><?php echo number_format($this->data['ptrial' . $i . 'usr'], 2)?></td>
+		<td><?php echo number_format((($this->data['ptrial' . $i . 'usr'] / $this->data['ptrial' . $i . 'sys']) * 100), 2)?>%</td>
+	</tr>
+<?php } ?>	
+<?php for ($i=1; $i<=6; $i++ ) { 
+		
+		$percent = (($this->data['usrline' . $i] / $this->data['sysline' . $i]) * 100);
+		
+		$css = 'red';
+		if ($percent >= 90 && $percent <= 110) {
+			$css = 'green';
+		} 
+		?>
+	<tr class='<?php echo $css;?>'>
+		<td>Test <?php echo $i; ?></td>
+		<td><?php echo number_format($this->data['sysline' . $i], 2)?></td>
+		<td><?php echo number_format($this->data['usrline' . $i], 2)?></td>
+		<td><?php echo number_format((($this->data['usrline' . $i] / $this->data['sysline' . $i]) * 100), 2)?>%</td>
+	</tr>
+<?php } ?>
+</table>
+
